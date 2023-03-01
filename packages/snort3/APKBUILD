@@ -1,0 +1,93 @@
+# Contributor: Victor Roemer <victor@badsec.org>
+# Maintainer: Victor Roemer <victor@badsec.org>
+pkgname=snort3
+pkgver=3.1.56.0
+pkgrel=1
+pkgdesc="Snort3 Intrusion Prevention System"
+url="www.snort.org"
+arch="all"
+license="GPL-2.0"
+options='!fhs !check' # Check requires a rebuild with unit tests enabled
+source="$pkgname-$pkgver.tar.gz::https://github.com/snort3/snort3/archive/refs/tags/$pkgver.tar.gz"
+subpackages="$pkgname-dev $pkgname-dbg $pkgname-utils"
+checkdepends="cppcheck cpputest"
+
+depends="libdnet
+	xz-libs
+	libuuid
+	pcre
+	libtirpc
+	libressl
+	libdaq
+	hwloc
+	hyperscan
+"
+
+makedepends="cmake
+	ninja
+	flex
+	flex-dev
+	libdnet-dev
+	luajit-dev
+	libpcap-dev
+	libressl-dev
+	libtirpc-dev
+	libuuid
+	pcre-dev
+	xz-dev
+	zlib-dev
+	libdaq
+	libdaq-dev
+	hwloc-dev
+	hyperscan-dev
+	jemalloc-dev
+"
+
+build() {
+	export CFLAGS="-O3"
+	export CXXFLAGS="-O3 -fno-rtti"
+	# Note: Removing abuild default CPPFLAGS='-Os -fomit-frame-pointer'
+	# Note: Removing abuild default LDFLAGS='No -Wl,--as-needed', it breaks linking.
+	export CPPFLAGS=""
+	export LDFLAGS=""
+	# configure_cmake.sh has some issues with ash
+	cmake -B build -G Ninja \
+		-DCMAKE_CXX_FLAGS:STRING="$CXXFLAGS" \
+		-DCMAKE_C_FLAGS:STRING="$CFLAGS" \
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+		-DCMAKE_BUILD_TYPE:STRING=None \
+		-DCMAKE_INSTALL_PREFIX:PATH=/usr/local/snort \
+		-DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
+		-DMAKE_DOC:BOOL=false \
+		-DENABLE_STATIC_DAQ:BOOL=false \
+		-DENABLE_GDB:BOOL=true \
+		-DENABLE_DEBUG:BOOL=false \
+		-DENABLE_TSC_CLOCK:BOOL=true \
+		-DENABLE_JEMALLOC:BOOL=true \
+		-DSTATIC_JEMALLOC:BOOL=true \
+		-DENABLE_SHELL:BOOL=true
+	cmake --build build
+}
+
+package() {
+	DESTDIR="$pkgdir" cmake --install build
+}
+
+dev() {
+	default_dev
+	amove usr/local/lib/pkgconfig/snort.pc
+}
+
+utils() {
+	amove usr/local/bin/appid_detector_builder.sh
+	amove usr/local/bin/snort2lua
+	amove usr/local/bin/u2boat
+	amove usr/local/bin/u2spewfoo
+	amove usr/local/lib/snort/daq/daq_file.so
+	amove usr/local/lib/snort/daq/daq_hext.so
+	amove usr/local/share/doc/snort/README.u2boat
+}
+
+sha512sums="
+82fd9fe92242cd20b02c151a51d80e711a81c3b1633b7997d8c0883bb9d6411343ac1dc5cd95d1cddb8aaecee1183a22548f216fe5468eaab4abb97866e2355c  snort3-3.1.56.0.tar.gz
+"

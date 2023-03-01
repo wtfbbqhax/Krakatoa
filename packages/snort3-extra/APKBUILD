@@ -1,0 +1,35 @@
+# Contributor: Victor Roemer <victor@badsec.org>
+# Maintainer: Victor Roemer <victor@badsec.org>
+pkgname="snort3-extra"
+pkgver="3.1.56.0"
+pkgrel=0
+pkgdesc="Snort3 Extra Stuff"
+url="https://github.com/snort3/snort3_extra"
+arch="all"
+license="GPL-2.0"
+depends="snort3 libdaq"
+makedepends="cmake ninja pkgconf snort3-dev libdaq-dev"
+subpackages="$pkgname-dbg"
+source="$pkgname-$pkgver.tar.gz::https://github.com/snort3/snort3_extra/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/snort3_extra-$pkgver"
+options="!fhs !check"
+
+build() {
+	cmake -B build -G Ninja \
+		-DCMAKE_CXX_FLAGS:STRING="$CXXFLAGS $CPPFLAGS" \
+		-DCMAKE_C_FLAGS:STRING="$CFLAGS $CPPFLAGS" \
+		-DCMAKE_BUILD_TYPE:STRING=$build_type \
+		-DENABLE_DEBUG:BOOL=false \
+		-DENABLE_GDB:BOOL=false \
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=OFF \
+		-DCMAKE_INSTALL_PREFIX=/usr/local
+	cmake --build build
+}
+
+package() {
+	DESTDIR="$pkgdir" cmake --install build
+}
+
+sha512sums="
+499c4cf5fb62fefdf57f18886e353d6f492fd904f94aca9a32dfb87e051727a9d3ae344c5dd90c100e1df70f1ee27515d117a09f357c8d14b051f8ca9978d326  snort3-extra-3.1.56.0.tar.gz
+"

@@ -1,0 +1,18 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Krakatoa and Packages
+      run: docker build . --build-arg ARCH=amd64 --build-arg ALPINE_VERSION=3.17.2 --file Containerfile --tag krakatoa:$(date +%s)

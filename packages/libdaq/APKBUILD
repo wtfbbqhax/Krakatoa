@@ -1,0 +1,236 @@
+# Contributor: Victor Roemer <victor@badsec.org>
+# Maintainer: Victor Roemer <victor@badsec.org>
+#
+# TODO Make sure module debug symbols do not get packaged into the libdaq-dbg
+pkgname=libdaq
+pkgver=3.0.11
+pkgrel=0
+pkgdesc="Snort3 DAQ"
+url="www.snort.org"
+arch="all"
+license="GPL-2.0-only"
+source="$pkgname-$pkgver.tar.gz::https://github.com/snort3/libdaq/archive/refs/tags/v$pkgver.tar.gz"
+builddir="$srcdir/libdaq-$pkgver"
+options='!fhs'
+
+subpackages="
+	daqtest:daqtest
+	$pkgname-dev
+	$pkgname-doc
+	$pkgname-dbg
+	$pkgname-afpacket-module-static:afpacket_module_static
+	$pkgname-afpacket-module:afpacket_module
+	$pkgname-bpf-module-static:bpf_module_static
+	$pkgname-bpf-module:bpf_module
+	$pkgname-dump-module-static:dump_module_static
+	$pkgname-dump-module:dump_module
+	$pkgname-fst-module-static:fst_module_static
+	$pkgname-fst-module:fst_module
+	$pkgname-gwlb-module-static:gwlb_module_static
+	$pkgname-gwlb-module:gwlb_module
+	$pkgname-nfq-module-static:nfq_module_static
+	$pkgname-nfq-module:nfq_module
+	$pkgname-pcap-module-static:pcap_module_static
+	$pkgname-pcap-module:pcap_module
+	$pkgname-savefile-module-static:savefile_module_static
+	$pkgname-savefile-module:savefile_module
+	$pkgname-trace-module-static:trace_module_static
+	$pkgname-trace-module:trace_module
+"
+
+depends="libpcap"
+checkdepends="cmocka-dev"
+afpacket_module_deps="libpcap"
+afpacket_module_makedeps="linux-headers libpcap-dev"
+nfq_module_deps="libmnl libnetfilter_queue"
+nfq_module_makedeps="libmnl-dev libnetfilter_queue-dev"
+makedepends="autoconf automake libtool $afpacket_module_makedeps $nfq_module_makedeps"
+
+build() {
+	cd "$builddir"
+	./bootstrap
+	./configure \
+		--enable-afpacket-module \
+		--enable-pcap-module \
+		--enable-dump-module \
+		--enable-nfq-module \
+		--enable-fst-module \
+		--enable-shared=yes \
+		--enable-silent-rules
+	make
+}
+
+check() {
+	echo "make check fails to link on alpine,musl-dev. Skipping"
+	#make -j check
+}
+
+package() {
+	make -C "$builddir" DESTDIR="$pkgdir" install
+}
+
+_move_docs() {
+	if [ ! -d "$subpkgdir" ]
+	then mkdir -p "$subpkgdir/usr/local/share/doc/libdaq"
+	fi
+	mv "$1" "$subpkgdir/$2"
+}
+
+doc() {
+	_move_docs "$builddir/README.md" "usr/local/share/doc/libdaq/README.md"
+	_move_docs "$builddir/modules/pcap/README.pcap.md" "usr/local/share/doc/libdaq/README-pcap.md"
+	_move_docs "$builddir/modules/divert/README.divert.md" "usr/local/share/doc/libdaq/README-divert.md"
+	_move_docs "$builddir/modules/dump/README.dump.md" "usr/local/share/doc/libdaq/README-dump.md"
+	_move_docs "$builddir/modules/trace/README.trace.md" "usr/local/share/doc/libdaq/README-trace.md"
+	_move_docs "$builddir/modules/savefile/README.savefile.md" "usr/local/share/doc/libdaq/README-savefile.md"
+	_move_docs "$builddir/modules/netmap/README.netmap.md" "usr/local/share/doc/libdaq/README-netmap.md"
+	_move_docs "$builddir/modules/nfq/README.nfq.md" "usr/local/share/doc/libdaq/README-nfq.md"
+	_move_docs "$builddir/modules/fst/README.fst.md" "usr/local/share/doc/libdaq/README-fst.md"
+	_move_docs "$builddir/modules/bpf/README.bpf.md" "usr/local/share/doc/libdaq/README-bpf.md"
+	_move_docs "$builddir/modules/gwlb/README.gwlb.md" "usr/local/share/doc/libdaq/README-gwlb.md"
+	_move_docs "$builddir/modules/afpacket/README.afpacket.md" "usr/local/share/doc/libdaq/README-afpacket.md"
+}
+
+dev() {
+	# Do not use `default_dev', it eats the static submodules.
+	amove "usr/local/include/daq.h"
+	amove "usr/local/include/daq_common.h"
+	amove "usr/local/include/daq_dlt.h"
+	amove "usr/local/include/daq_module_api.h"
+	amove "usr/local/include/daq_version.h"
+	amove "usr/local/lib/libdaq.a"
+	amove "usr/local/lib/pkgconfig/libdaq.pc"
+}
+
+daqtest() {
+	amove "usr/local/bin/daqtest"
+	amove "usr/local/bin/daqtest-static"
+}
+
+# dynamiclib
+afpacket_module() {
+	amove "usr/local/lib/daq/daq_afpacket.so"
+}
+
+pcap_module() {
+	amove "usr/local/lib/daq/daq_pcap.so"
+}
+
+dump_module() {
+	amove "usr/local/lib/daq/daq_dump.so"
+}
+
+nfq_module() {
+	amove "usr/local/lib/daq/daq_nfq.so"
+}
+
+fst_module() {
+	amove "usr/local/lib/daq/daq_fst.so"
+}
+
+bpf_module() {
+	amove "usr/local/lib/daq/daq_bpf.so"
+}
+
+trace_module() {
+	amove "usr/local/lib/daq/daq_trace.so"
+}
+
+savefile_module() {
+	amove "usr/local/lib/daq/daq_savefile.so"
+}
+
+gwlb_module() {
+	amove "usr/local/lib/daq/daq_gwlb.so"
+}
+
+# -static
+afpacket_module_static() {
+	amove "usr/local/lib/libdaq_static_afpacket.a"
+	amove "usr/local/lib/pkgconfig/libdaq_static_afpacket.pc"
+}
+
+pcap_module_static() {
+	amove "usr/local/lib/libdaq_static_pcap.a"
+	amove "usr/local/lib/pkgconfig/libdaq_static_pcap.pc"
+}
+
+dump_module_static() {
+	amove "usr/local/lib/libdaq_static_dump.a"
+	amove "usr/local/lib/pkgconfig/libdaq_static_dump.pc"
+}
+
+nfq_module_static() {
+	amove "usr/local/lib/libdaq_static_nfq.a"
+	amove "usr/local/lib/pkgconfig/libdaq_static_nfq.pc"
+}
+
+fst_module_static() {
+	amove "usr/local/lib/libdaq_static_fst.a"
+	amove "usr/local/lib/pkgconfig/libdaq_static_fst.pc"
+}
+
+bpf_module_static() {
+	amove "usr/local/lib/libdaq_static_bpf.a"
+	amove "usr/local/lib/pkgconfig/libdaq_static_bpf.pc"
+}
+
+trace_module_static() {
+	amove "usr/local/lib/libdaq_static_trace.a"
+	amove "usr/local/lib/pkgconfig/libdaq_static_trace.pc"
+}
+
+savefile_module_static() {
+	amove "usr/local/lib/libdaq_static_savefile.a"
+	amove "usr/local/lib/pkgconfig/libdaq_static_savefile.pc"
+}
+
+gwlb_module_static() {
+	amove "usr/local/lib/libdaq_static_gwlb.a"
+	amove "usr/local/lib/pkgconfig/libdaq_static_gwlb.pc"
+}
+
+sha512sums="
+b794da0a1297e74f29940eeb956a294ed1b3c77695659d9fa540a22f03ed466960c2f60fdc36ab8f4fdf56db11630da72bf5fd28361cfa6f043bf4c273e8bafd  libdaq-3.0.11.tar.gz
+"
+
+# FIXME Breakout dbg symbols for each daq module into separate packages.
+#
+# The libdaq-dbg subpackage currently contains the debug symbols for libdaq.so
+# and all the daq_*.so files.
+#
+# The code below is incomplete, but is a good starting point.
+#
+# MISSING:
+# 1. Fix subpackage dependencies to include parent the parent libdaq-*module
+# 2. Split function for libdaq-dbg to only include libdaq.so symbols.
+
+#subpackages="
+#   $subpackages
+#	$pkgname-afpacket-module-dbg:module_dbg
+#	$pkgname-pcap-module-dbg:module_dbg
+#	$pkgname-dump-module-dbg:module_dbg
+#	$pkgname-nfq-module-dbg:module_dbg
+#	$pkgname-bpf-module-dbg:module_dbg
+#	$pkgname-fst-module-dbg:module_dbg
+#	$pkgname-trace-module-dbg:module_dbg
+#	$pkgname-savefile-module-dbg:module_dbg
+#"
+#
+#_extract_module_name() {
+#    local input=$(basename "$1")
+#    input="${input#"libdaq-"}"
+#    input="${input%"-module-dbg"}"
+#    echo "$input"
+#}
+#
+#module_dbg() {
+#    pkgdesc="$pkgdesc (debug symbols)"
+#    local modname=$(_extract_module_name $subpkgdir)
+#    local tmpdir="$(dirname $subpkgdir)/libdaq-$modname-module"
+#    local dbgdir="$subpkgdir/usr/lib/debug/usr/local/lib/daq/"
+#    mkdir -p "$dbgdir"
+#    objcopy --only-keep-debug "$tmpdir/usr/local/lib/daq/daq_$modname.so" "$dbgdir/daq_$modname.so.debug"
+#    objcopy --add-gnu-debuglink="$dbgdir/daq_$modname.so.debug" "$tmpdir/usr/local/lib/daq/daq_$modname.so"
+#    install -D -m 644 "$dbgdir/daq_$modname.so.debug" "$pkgdir/$dbgdir/daq_$modname.so.debug"
+#}

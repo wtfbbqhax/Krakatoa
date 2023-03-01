@@ -1,0 +1,75 @@
+# Contributor: Victor Roemer <victor@badsec.org>
+# Maintainer: Victor Roemer <victor@badsec.org>
+# Based on original by Duncan Bellamy <dunk@denkimushi.com>
+# Vectorscan, a hyperscan alternative that works on aarch64.
+pkgname=hyperscan
+pkgver=5.4.8
+pkgrel=0
+pkgdesc="A fork of Intel's Hyperscan, modified to run on more platforms."
+url="https://github.com/VectorCamp/vectorscan"
+arch="x86 x86_64 aarch64 arm32v7"
+license="BSD-3-Clause"
+makedepends="cmake ragel boost-dev pcre-dev sqlite-dev chrpath"
+subpackages="$pkgname-dev $pkgname-tools"
+source="vectorscan-$pkgver.tar.gz::https://github.com/VectorCamp/vectorscan/archive/refs/tags/vectorscan/$pkgver.tar.gz"
+builddir="$srcdir/vectorscan-vectorscan-$pkgver"
+options="!check"
+
+build() {
+    cd "$builddir"
+
+    # Todo review this further
+    # https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+    local _march="-march=native"
+    case "${CARCH:-native}" in
+    x86|x86_64) _march="-march=core2" ;;
+    esac
+
+    if [ "$CBUILD" != "$CHOST" ];
+    then CMAKE_CROSSOPTS="-DCMAKE_SYSTEM_NAME=Linux -DCMAKE_HOST_SYSTEM_NAME=Linux"
+    fi
+
+    cmake -B build \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DCMAKE_BUILD_TYPE=RELEASE \
+        -DCMAKE_C_FLAGS="$CFLAGS $_march" \
+        -DCMAKE_CXX_FLAGS="$CXXFLAGS $_march" \
+        -DBUILD_STATIC_AND_SHARED=ON \
+        "$CMAKE_CROSSOPTS" .
+    cmake --build build --target all
+}
+
+check() {
+    cd "$builddir"
+    ./build/bin/unit-hyperscan
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --build build --target install
+
+    cd "$pkgdir"
+    install -Dm644 "$builddir/LICENSE" "usr/share/licenses/$pkgname/LICENSE"
+    mkdir -p usr/bin
+    for _f in hsbench hscheck hscollider; do
+        mv "$builddir/build/bin/$_f" usr/bin/
+        chrpath -d "usr/bin/$_f"
+    done
+}
+
+dev() {
+    default_dev
+    amove usr/share/doc/vectorscan/examples/README.md
+    amove usr/share/doc/vectorscan/examples/patbench.cc
+    amove usr/share/doc/vectorscan/examples/pcapscan.cc
+}
+
+tools() {
+    amove usr/bin/hsbench
+    amove usr/bin/hscheck
+    amove usr/bin/hscollider
+}
+
+sha512sums="
+336f10a9bd5f2531830917ffeb78c0dad86cadde0fd4a409e1f064f1311191870804264a52d3d90c5d897465041eb256196e1c5511766da98b3c8d832ae33edc  vectorscan-5.4.8.tar.gz
+"
