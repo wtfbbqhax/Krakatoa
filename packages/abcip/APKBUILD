@@ -1,0 +1,34 @@
+# Contributor: Victor Roemer <victor@badsec.org>
+# Maintainer: Victor Roemer <victor@badsec.org>
+pkgname=abcip
+pkgver=2.4.1
+pkgrel=0
+pkgdesc="ABC IP"
+url="https://www.github.com/crc181/abcip"
+arch="all"
+license="GPL-3.0"
+options='!fhs !check'
+giturl="https://github.com/crc181/abcip.git"
+builddir="$srcdir/abcip"
+depends="libpcap"
+makedepends="git libpcap-dev autoconf automake libtool"
+subpackages="abcip-doc"
+
+prepare() {
+	mkdir -p "$builddir"
+	git clone --depth 1 --branch master $giturl "$builddir"
+}
+
+build() {
+	./bootstrap
+	./configure
+	make -C "$builddir"
+}
+
+package() {
+	make -C "$builddir" DESTDIR="$pkgdir" install
+}
+
+doc() {
+	amove "/usr/local/share/doc"
+}

@@ -1,4 +1,4 @@
-# Krakatoa 
+# Krakatoa
 ![Docker-Image CI](https://github.com/wtfbbqhax/Krakatoa/actions/workflows/docker-image.yml/badge.svg)
 
 **FROM [Alpine Linux 3.17.2](https://www.alpinelinux.org/posts/Alpine-3.17.2-released.html)**
@@ -14,6 +14,9 @@ Several dependencies to build a complete version of Snort 3 are not part officia
  * [LibDAQ 3.0.11](https://github.com/snort3/libdaq/releases/tag/v3.0.11)
  * [Snort3 3.1.56.0](https://github.com/snort3/snort3/releases/tag/3.1.56.0)
  * [Snort3 Extra 3.1.56.0](https://github.com/snort3/snort3_extra/releases/tag/3.1.56.0)
+ * [AbcIP 2.4.1](https://github.com/crc181/abcip)[^1]
+
+[^1]: AbcIP version 2.4.1 is not a real tagged build, our package builds the HEAD of master. -wtfbbqhax
 
 ## How to
 
