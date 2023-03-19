@@ -12,8 +12,8 @@ Several dependencies to build a complete version of Snort 3 are not part officia
  * [jemalloc 5.3.0](https://github.com/jemalloc/jemalloc/releases/tag/5.3.0/)
  * [Vectorscan 5.4.8](https://github.com/VectorCamp/vectorscan/releases/tag/vectorscan/5.4.8)
  * [LibDAQ 3.0.11](https://github.com/snort3/libdaq/releases/tag/v3.0.11)
- * [Snort3 3.1.56.0](https://github.com/snort3/snort3/releases/tag/3.1.56.0)
- * [Snort3 Extra 3.1.56.0](https://github.com/snort3/snort3_extra/releases/tag/3.1.56.0)
+ * [Snort3 3.1.57.0](https://github.com/snort3/snort3/releases/tag/3.1.57.0)
+ * [Snort3 Extra 3.1.57.0](https://github.com/snort3/snort3_extra/releases/tag/3.1.57.0)
  * [AbcIP 2.4.1](https://github.com/crc181/abcip)[^1]
 
 [^1]: AbcIP version 2.4.1 is not a real tagged build, our package builds the HEAD of master. -wtfbbqhax
