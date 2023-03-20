@@ -28,9 +28,14 @@ makedepends="
 	py3-sphinx
 	zlib-dev
 	"
-subpackages="$pkgname-test:_test $pkgname-examples $pkgname-static $pkgname-dev $pkgname-doc"
-source="https://fast.dpdk.org/rel/dpdk-${pkgver}.tar.xz"
-#	no-execinfo.patch
+subpackages="
+	$pkgname-test:_test
+	$pkgname-examples
+	$pkgname-static
+	$pkgname-dev
+	$pkgname-doc
+"
+source="https://fast.dpdk.org/rel/dpdk-${pkgver}.tar.xz no-execinfo.patch"
 builddir="$srcdir/$pkgname-stable-$pkgver"
 
 build() {
