@@ -1,0 +1,66 @@
+# Contributor: Victor Roemer <victor@badsec.org>
+# Maintainer: Victor Roemer <victor@badsec.org>
+pkgname=vpp
+pkgver="23.02"
+pkgrel=0
+pkgdesc="Vector Packet Processing"
+url="https://github.com/FDio/vpp"
+arch="x86 x86_64 aarch64"
+license="Apache"
+subpackages="$pkgname"
+builddir="$srcdir/vpp-$pkgver"
+giturl="https://github.com/FDio/vpp.git"
+_gittag="v$pkgver"
+
+#depends=""
+makedepends="cmake
+        ninja
+        bash
+        python3
+        py3-pip
+        flex
+        libuuid
+        apr-dev
+        check-dev
+        confuse-dev
+        dpdk-static
+        elfutils-dev
+        libdaq-dev
+        libffi-dev
+        libmnl-dev
+        libnl3-dev
+        libpcap-dev
+        libuuid
+        numactl-dev
+        openssl-dev
+        pcre-dev
+        libxdp-static
+        xz-dev
+        zlib-dev
+        git
+"
+prepare() {
+        mkdir -p "$builddir"
+        git clone --depth 1 --branch $_gittag $giturl "$builddir"
+        pip3 install ply
+        cd $builddir
+        patch -p1 < ../../*.patch
+}
+
+build() {
+        cmake src -B _build -G Ninja \
+            -DVPP_USE_EXTERNAL_LIBEXECINFO:BOOL=true \
+            -DVPP_API_TEST_BUILTIN:BOOL=false \
+            -DVPP_BUILD_VPPINFRA_TESTS:BOOL=false \
+            -DENABLE_VCL_PRELOAD:BOOL=false \
+        cmake --build _build
+}
+
+check() {
+        cd "$builddir"
+}
+
+package() {
+        DESTDIR="$pkgdir" cmake --build _build --target install
+}
+

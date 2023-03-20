@@ -1,0 +1,20 @@
+/home/build/packages/vpp/src/vpp-23.02/src/plugins/unittest/policer_test.c:24:3: error: unknown type name 'uint'; did you mean 'int'?
+   24 |   uint rate_kbps, burst, num_pkts;
+      |   ^~~~
+      |   int
+ninja: subcommand failed
+
+diff --git a/src/plugins/unittest/policer_test.c b/src/plugins/unittest/policer_test.c
+index 2b14bf6..41f7699 100644
+--- a/src/plugins/unittest/policer_test.c
++++ b/src/plugins/unittest/policer_test.c
+@@ -21,7 +21,7 @@ policer_test (vlib_main_t *vm, unformat_input_t *input,
+              vlib_cli_command_t *cmd_arg)
+ {
+   int policer_index, i;
+-  uint rate_kbps, burst, num_pkts;
++  unsigned int rate_kbps, burst, num_pkts;
+   double total_bytes, cpu_ticks_per_pkt, time = 0;
+   double cpu_speed, cpu_ticks_per_byte;
+   policer_result_e result, input_colour = POLICE_CONFORM;
+

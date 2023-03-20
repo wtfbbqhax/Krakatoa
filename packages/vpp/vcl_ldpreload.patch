@@ -1,0 +1,27 @@
+Author: Victor Roemer
+Date: February 23, 2023
+
+vcl_ldpreload target can not be built on systems using musl.
+
+diff --git a/src/vcl/CMakeLists.txt b/src/vcl/CMakeLists.txt
+index 610b422d1..2577521b3 100644
+--- a/src/vcl/CMakeLists.txt
++++ b/src/vcl/CMakeLists.txt
+@@ -35,6 +35,8 @@ if (LDP_HAS_GNU_SOURCE)
+   add_compile_definitions(HAVE_GNU_SOURCE)
+ endif(LDP_HAS_GNU_SOURCE)
+
++option(ENABLE_VCL_LDPRELOAD "Build the vcl_ldpreload shim" OFF)
++if(ENABLE_VCL_LDPRELOAD)
+ add_vpp_library(vcl_ldpreload
+   SOURCES
+   ldp_socket_wrapper.c
+@@ -50,4 +52,5 @@ add_vpp_headers(vcl
+   vppcom.h
+   vcl_locked.h
+   ldp_socket_wrapper.h
+-)
+\ No newline at end of file
++)
++endif(ENABLE_VCL_LDPRELOAD)
+
