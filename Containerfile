@@ -24,7 +24,7 @@ WORKDIR /home/build
 ENV PACKAGE_DIR=/home/build/packages
 RUN APKBUILD="$PACKAGE_DIR/libexecinfo/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/isa-l/APKBUILD" abuild -r
-RUN APKBUILD="$PACKAGE_DIR/xdp-tools/APKBUILD" abuild -r
+#RUN APKBUILD="$PACKAGE_DIR/xdp-tools/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/dpdk/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/vpp/APKBUILD" abuild -r
 
