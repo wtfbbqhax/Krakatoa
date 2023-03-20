@@ -1,0 +1,29 @@
+# Contributor: Victor Roemer <victor@badsec.org>
+# Maintainer: Victor Roemer <victor@badsec.org>
+pkgname=lightspd-manifest
+pkgver=0.1.0
+pkgrel=0
+pkgdesc="Minimal manifest generator from the Talos LightSPD tarball"
+url="https://github.com/wtfbbqhax/lightspd-manifest"
+arch="all"
+license="MIT"
+options="!check"
+giturl="https://github.com/wtfbbqhax/lightspd-manifest.git"
+makedepends="cargo git"
+builddir="$srcdir/$pkgname"
+
+prepare() {
+    mkdir -p "$builddir"
+    git clone --depth 1 --branch main "$giturl" "$builddir"
+}
+
+build() {
+	cd "$builddir"
+	cargo build --release
+}
+
+package() {
+    mkdir -p "$pkgdir"
+    cd "$pkgdir"
+    cargo install --path "$builddir" --root "$PWD/usr/"
+}

@@ -15,6 +15,7 @@ Several dependencies to build a complete version of Snort 3 are not part officia
  * [Snort3 3.1.57.0](https://github.com/snort3/snort3/releases/tag/3.1.57.0)
  * [Snort3 Extra 3.1.57.0](https://github.com/snort3/snort3_extra/releases/tag/3.1.57.0)
  * [AbcIP 2.4.1](https://github.com/crc181/abcip)[^1]
+ * [Lightspd Manifest 0.1.0](https://github.com/wtfbbqhax/lightspd-manifest)
 
 [^1]: AbcIP version 2.4.1 is not a real tagged build, our package builds the HEAD of master. -wtfbbqhax
 
@@ -56,4 +57,5 @@ Several dependencies to build a complete version of Snort 3 are not part officia
     ```
 
 ## Credits
-* Victor Roemer ([wtfbbqhax](https://www.github.com/wtfbbqhax))
+
+ * Victor Roemer ([wtfbbqhax](https://www.github.com/wtfbbqhax))
