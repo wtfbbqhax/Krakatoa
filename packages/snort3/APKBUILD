@@ -1,7 +1,7 @@
 # Contributor: Victor Roemer <victor@badsec.org>
 # Maintainer: Victor Roemer <victor@badsec.org>
 pkgname=snort3
-pkgver=3.1.57.0
+pkgver=3.1.58.0
 pkgrel=1
 pkgdesc="Snort3 Intrusion Prevention System"
 url="www.snort.org"
@@ -89,5 +89,5 @@ utils() {
 }
 
 sha512sums="
-0a251f63505ff20331b6f66d9de57e661a166f67fc8df21ca5b4ec6a180f6bc83c9a23fbb3ba637d4cc330527ca8a9427aa6147983f521e711ed04808d7010c4  snort3-3.1.57.0.tar.gz
+e36c2f38647d527b98752b082d7bac020c826a29bc0f171f099b98bea9ac79659a2c3e4c7d8bcf7304be3270011f7a29ead6df5e9aece33c3bbf7b9c087327eb  snort3-3.1.58.0.tar.gz
 "
