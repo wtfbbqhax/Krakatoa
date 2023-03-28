@@ -3,7 +3,7 @@
 # Based on original by Duncan Bellamy <dunk@denkimushi.com>
 # Vectorscan, a hyperscan alternative that works on aarch64.
 pkgname=hyperscan
-pkgver=5.4.8
+pkgver=5.4.9
 pkgrel=0
 pkgdesc="A fork of Intel's Hyperscan, modified to run on more platforms."
 url="https://github.com/VectorCamp/vectorscan"
@@ -71,5 +71,5 @@ tools() {
 }
 
 sha512sums="
-336f10a9bd5f2531830917ffeb78c0dad86cadde0fd4a409e1f064f1311191870804264a52d3d90c5d897465041eb256196e1c5511766da98b3c8d832ae33edc  vectorscan-5.4.8.tar.gz
+2a482eaf60a51efb6f1235eb0c2614e791b3533d346b5e42c6b1362afa12f3ebf2ae2d32c125dfdb665bae55cdbe8f099f8466cda131ef6ce1dd6ece0a3f1458  vectorscan-5.4.9.tar.gz
 "
