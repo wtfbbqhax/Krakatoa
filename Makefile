@@ -4,7 +4,7 @@ ALPINE_VERSION := 3.17.2
 CONTAINERFILE=Containerfile
 
 # Define the docker image name
-IMAGE_NAME := $(ARCH)/krakatoa 
+IMAGE_NAME := $(ARCH)/krakatoa
 
 .PHONY: build
 
@@ -15,3 +15,6 @@ build:
 		-t $(IMAGE_NAME) \
 		-f $(CONTAINERFILE) \
 		.
+
+run:
+	docker run --rm -ti $(IMAGE_NAME) sh
