@@ -1,7 +1,7 @@
 # Krakatoa
 ![Docker-Image CI](https://github.com/wtfbbqhax/Krakatoa/actions/workflows/docker-image.yml/badge.svg)
 
-**FROM [Alpine Linux 3.17.2](https://www.alpinelinux.org/posts/Alpine-3.17.2-released.html)**
+**FROM [Alpine Linux 3.17.3](https://www.alpinelinux.org/posts/Alpine-3.17.3-released.html)**
 
 This repository serves as a reference for building a custom Alpine container images based on the Alpine Linux. We make use of the Alpine Packaging tools `abuild` and `apk` to build a package repository local to the image itself. The local package repo builds package and subpackage targets from the software listed below.
 

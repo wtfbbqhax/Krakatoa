@@ -1,6 +1,6 @@
 # Define variables for build args
 ARCH := $(or $(ARCH),amd64)
-ALPINE_VERSION := 3.17.2
+ALPINE_VERSION := 3.17.3
 CONTAINERFILE=Containerfile
 
 # Define the docker image name
