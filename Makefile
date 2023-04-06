@@ -1,12 +1,18 @@
 # Define variables for build args
-ARCH := $(or $(ARCH),amd64)
 ALPINE_VERSION := 3.17.3
 CONTAINERFILE=Containerfile
+
+# User may specify the architecture to build else build for the host
+ARCH ?= $(shell uname -m)
+ifeq ($(filter $(ARCH), x86_64 arm64),)
+    $(error Unsupported architecture: $(ARCH))
+endif
+ARCH := $(if $(filter $(ARCH), x86_64),amd64,arm64v8)
 
 # Define the docker image name
 IMAGE_NAME := $(ARCH)/krakatoa
 
-.PHONY: build
+.PHONY: build run
 
 build:
 	docker build \
