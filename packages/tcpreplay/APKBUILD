@@ -1,0 +1,27 @@
+# Contributor: Victor Roemer <victor@badsec.org>
+# Maintainer: Victor Roemer <victor@badsec.org>
+pkgname=tcpreplay
+pkgver=4.4.3
+pkgrel=0
+pkgdesc="Tcpreplay is a suite of free Open Source utilities for editing and replaying previously captured network traffic."
+url="https://tcpreplay.appneta.com"
+arch="all"
+license="GPL-3.0"
+options='!fhs !check'
+giturl="https://github.com/appneta/tcpreplay.git"
+depends="libpcap"
+makedepends="git libpcap-dev autoconf automake libtool"
+source="https://github.com/appneta/tcpreplay/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"
+
+build() {
+	./configure
+	make -C "$builddir"
+}
+
+package() {
+	make -C "$builddir" DESTDIR="$pkgdir" install
+}
+
+sha512sums="
+f69137ef41d16f4acda4190245f73f0b3db950783e5a6fc3374c27eae80c8bf096f5392c18c1b33b90bc32380625c5b5f149f7ec1c50b971ddd761279abffe68  tcpreplay-4.4.3.tar.gz
+"

@@ -28,8 +28,9 @@ RUN APKBUILD="$PACKAGE_DIR/hwloc/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/libdaq/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/snort3/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/snort3-extra/APKBUILD" abuild -r
-RUN APKBUILD="$PACKAGE_DIR/abcip/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/lightspd-manifest/APKBUILD" abuild -r
+RUN APKBUILD="$PACKAGE_DIR/abcip/APKBUILD" abuild -r
+RUN APKBUILD="$PACKAGE_DIR/tcpreplay/APKBUILD" abuild -r
 
 # cleanup
 RUN unset PACKAGE_DIR
