@@ -1,0 +1,29 @@
+# Contributor: Your Name <youremail@domain.com>
+# Maintainer: Your Name <youremail@domain.com>
+pkgname=helloworld
+pkgver=1.0.0
+pkgrel=0
+pkgdesc="My Golang project"
+url="https://github.com/yourusername/mygoproject"
+arch="all"
+license="MIT"
+depends=""
+makedepends="go"
+source="helloworld-$pkgver.tar.gz"
+builddir="$srcdir/helloworld-$pkgver"
+
+build() {
+	export GOPATH="$builddir"
+	cd src/helloworld
+	go mod init helloworld
+	go build .
+}
+
+package() {
+	cd "$builddir"
+	install -Dm755 $GOPATH/src/helloworld/helloworld "$pkgdir/usr/bin/helloworld"
+}
+
+sha512sums="
+c933d316d5fcf12e3fedac4dc83681a5e4c821435bd3f982236c01df044878027cf53c430cdbfad786570562dff1a4b21cfa32780e171f7ddded3fc5ac50404f  helloworld-1.0.0.tar.gz
+"
