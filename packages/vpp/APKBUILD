@@ -25,7 +25,6 @@ makedepends="cmake
 		libexecinfo-dev
         confuse-dev
         elfutils-dev
-        libdaq-dev
         libffi-dev
         libmnl-dev
         libnl3-dev
@@ -38,7 +37,9 @@ makedepends="cmake
         zlib-dev
         git
 "
-# dpdk-static
+
+#libdaq-dev
+#dpdk-static
 #libxdp-static
 prepare() {
         mkdir -p "$builddir"
