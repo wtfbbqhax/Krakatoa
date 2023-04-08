@@ -22,8 +22,8 @@ makedepends="cmake
         libuuid
         apr-dev
         check-dev
+		libexecinfo-dev
         confuse-dev
-        dpdk-static
         elfutils-dev
         libdaq-dev
         libffi-dev
@@ -34,11 +34,12 @@ makedepends="cmake
         numactl-dev
         openssl-dev
         pcre-dev
-        libxdp-static
         xz-dev
         zlib-dev
         git
 "
+# dpdk-static
+#libxdp-static
 prepare() {
         mkdir -p "$builddir"
         git clone --depth 1 --branch $_gittag $giturl "$builddir"
