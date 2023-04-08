@@ -12,8 +12,8 @@ Several dependencies to build a complete version of Snort 3 are not part officia
  * [jemalloc 5.3.0](https://github.com/jemalloc/jemalloc/releases/tag/5.3.0/)
  * [Vectorscan 5.4.9](https://github.com/VectorCamp/vectorscan/releases/tag/vectorscan/5.4.9)
  * [LibDAQ 3.0.11](https://github.com/snort3/libdaq/releases/tag/v3.0.11)
- * [Snort3 3.1.58.0](https://github.com/snort3/snort3/releases/tag/3.1.58.0)
- * [Snort3 Extra 3.1.58.0](https://github.com/snort3/snort3_extra/releases/tag/3.1.58.0)
+ * [Snort3 3.1.59.0](https://github.com/snort3/snort3/releases/tag/3.1.59.0)
+ * [Snort3 Extra 3.1.59.0](https://github.com/snort3/snort3_extra/releases/tag/3.1.59.0)
  * [AbcIP 2.4.1](https://github.com/crc181/abcip)[^1]
  * [Lightspd Manifest 0.1.0](https://github.com/wtfbbqhax/lightspd-manifest)
 
