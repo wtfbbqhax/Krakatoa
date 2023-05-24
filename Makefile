@@ -1,5 +1,5 @@
 # Define variables for build args
-ALPINE_VERSION := 3.17.3
+ALPINE_VERSION := 3.18.0
 CONTAINERFILE=Containerfile
 
 # User may specify the architecture to build else build for the host
@@ -23,4 +23,4 @@ build:
 		.
 
 run:
-	docker run --rm -ti $(IMAGE_NAME) sh
+	docker run -v$(PWD)/mount:/mount --rm -ti $(IMAGE_NAME) sh
