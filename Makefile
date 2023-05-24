@@ -24,3 +24,7 @@ build:
 
 run:
 	docker run -v$(PWD)/mount:/mount --rm -ti $(IMAGE_NAME) sh
+
+clean:
+	docker rmi $(IMAGE_NAME)
+	docker rmi $(ARCH)/alpine:$(ALPINE_VERSION)
