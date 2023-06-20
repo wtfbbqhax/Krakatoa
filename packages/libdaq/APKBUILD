@@ -3,7 +3,7 @@
 #
 # TODO Make sure module debug symbols do not get packaged into the libdaq-dbg
 pkgname=libdaq
-pkgver=3.0.11
+pkgver=3.0.12
 pkgrel=0
 pkgdesc="Snort3 DAQ"
 url="www.snort.org"
@@ -191,7 +191,7 @@ gwlb_module_static() {
 }
 
 sha512sums="
-b794da0a1297e74f29940eeb956a294ed1b3c77695659d9fa540a22f03ed466960c2f60fdc36ab8f4fdf56db11630da72bf5fd28361cfa6f043bf4c273e8bafd  libdaq-3.0.11.tar.gz
+e2699bd97045d195e9c3187beaa56da53f907751ed87e6dfd7b90bbc138f8dc21d2b3fe1aae731ee198e01e0d124dab9e52291ad909ed65147277ae82b62b58a  libdaq-3.0.12.tar.gz
 "
 
 # FIXME Breakout dbg symbols for each daq module into separate packages.
