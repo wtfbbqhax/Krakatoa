@@ -1,19 +1,19 @@
 # Krakatoa
 ![Docker-Image CI](https://github.com/wtfbbqhax/Krakatoa/actions/workflows/docker-image.yml/badge.svg)
 
-**FROM [Alpine Linux 3.18.0](https://www.alpinelinux.org/posts/Alpine-3.18.0-released.html)**
+**FROM [Alpine Linux 3.18.2](https://www.alpinelinux.org/posts/Alpine-3.15.9-3.16.6-3.17.4-3.18.2-released.html)**
 
 This repository serves as a reference for building a custom Alpine container images based on the Alpine Linux. We make use of the Alpine Packaging tools `abuild` and `apk` to build a package repository local to the image itself. The local package repo builds package and subpackage targets from the software listed below.
 
-### Packaged Software 
+### Packaged Software
 Several dependencies to build a complete version of Snort 3 are not part officially supported by Alpine Linux or what does exist did not meet my expectations so they've been pulled directly. Additionally, the Snort3, Snort3 Extra and LibDAQ packages were solely produced for **Krakatoa**.
 
- * [Snort3 3.1.62.0](https://github.com/snort3/snort3/releases/tag/3.1.59.0)
- * [Snort3 Extra 3.1.62.0](https://github.com/snort3/snort3_extra/releases/tag/3.1.59.0)
+ * [Snort3 3.1.64.0](https://github.com/snort3/snort3/releases/tag/3.1.64.0)
+ * [Snort3 Extra 3.1.64.0](https://github.com/snort3/snort3_extra/releases/tag/3.1.64.0)
  * [hwloc 2.9.1](https://www-lb.open-mpi.org/software/hwloc/v2.9/)
  * [jemalloc 5.3.0](https://github.com/jemalloc/jemalloc/releases/tag/5.3.0/)
  * [Vectorscan 5.4.9](https://github.com/VectorCamp/vectorscan/releases/tag/vectorscan/5.4.9)
- * [LibDAQ 3.0.11](https://github.com/snort3/libdaq/releases/tag/v3.0.11)
+ * [LibDAQ 3.0.12](https://github.com/snort3/libdaq/releases/tag/v3.0.12)
  * [AbcIP 2.4.1](https://github.com/crc181/abcip)[^1]
  * [Lightspd Manifest 0.1.0](https://github.com/wtfbbqhax/lightspd-manifest)
 
