@@ -11,7 +11,7 @@ options='!fhs !check'
 giturl="https://github.com/crc181/abcip.git"
 builddir="$srcdir/abcip"
 depends="libpcap"
-makedepends="git libpcap-dev autoconf automake libtool"
+makedepends="git libpcap-dev autoconf automake libtool libdaq-dev"
 subpackages="abcip-doc"
 
 prepare() {
@@ -21,7 +21,7 @@ prepare() {
 
 build() {
 	./bootstrap
-	./configure
+	./configure --enable-daq
 	make -C "$builddir"
 }
 
