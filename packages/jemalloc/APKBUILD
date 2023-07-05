@@ -18,7 +18,7 @@ options="!check"
 
 build() {
 	echo "$pkgver" > VERSION
-	./configure --prefix=/usr --enable-silent-rules
+	./configure --prefix=/usr
 	make
 }
 

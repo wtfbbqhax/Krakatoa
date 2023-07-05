@@ -8,11 +8,36 @@ on:
 
 jobs:
 
-  build:
+  arm64v8:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build Krakatoa and Packages
-      run: docker build . --build-arg ARCH=amd64 --build-arg ALPINE_VERSION=3.17.2 --file Containerfile --tag krakatoa:$(date +%s)
+    - uses: docker/setup-qemu-action@v2
+      with:
+        platforms: arm64
+    - uses: docker/build-push-action@v4
+      with:
+        push: false
+        build-args: |-
+          ARCH=arm64v8
+          ALPINE_VERSION=3.18.2
+        file: Containerfile
+        tags: amd64/krakatoa:latest
+
+  amd64:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: docker/build-push-action@v4
+      with:
+        push: false
+        build-args: |-
+          ARCH=amd64
+          ALPINE_VERSION=3.18.2
+        file: Containerfile
+        tags: amd64/krakatoa:latest
+
