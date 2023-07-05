@@ -22,6 +22,7 @@ USER build
 WORKDIR /home/build
 
 ENV PACKAGE_DIR=/home/build/packages
+
 RUN APKBUILD="$PACKAGE_DIR/jemalloc/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/hyperscan/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/hwloc/APKBUILD" abuild -r
@@ -31,5 +32,5 @@ RUN APKBUILD="$PACKAGE_DIR/snort3_extra/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/abcip/APKBUILD" abuild -r
 RUN APKBUILD="$PACKAGE_DIR/lightspd-manifest/APKBUILD" abuild -r
 
-# cleanup
+## cleanup
 RUN unset PACKAGE_DIR
