@@ -9,6 +9,7 @@ on:
 jobs:
 
   arm64v8:
+    if: false # disable arm64v8 cross compile for now
 
     runs-on: ubuntu-latest
 
