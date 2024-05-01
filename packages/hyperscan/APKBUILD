@@ -29,13 +29,16 @@ build() {
     then CMAKE_CROSSOPTS="-DCMAKE_SYSTEM_NAME=Linux -DCMAKE_HOST_SYSTEM_NAME=Linux"
     fi
 
+	# No longer supported as of v5.4.11, worked in 5.4.10.1
+    #-DBUILD_STATIC_AND_SHARED=ON
+
     cmake -B build \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=lib \
         -DCMAKE_BUILD_TYPE=RELEASE \
         -DCMAKE_C_FLAGS="$CFLAGS $_march" \
         -DCMAKE_CXX_FLAGS="$CXXFLAGS $_march" \
-        -DBUILD_STATIC_AND_SHARED=ON \
+        -DBUILD_SHARED_LIBS=ON \
         "$CMAKE_CROSSOPTS" .
     cmake --build build --target all
 }
@@ -51,7 +54,7 @@ package() {
     cd "$pkgdir"
     install -Dm644 "$builddir/LICENSE" "usr/share/licenses/$pkgname/LICENSE"
     mkdir -p usr/bin
-    for _f in hsbench hscheck hscollider; do
+    for _f in hsbench hscheck simplegrep; do
         mv "$builddir/build/bin/$_f" usr/bin/
         chrpath -d "usr/bin/$_f"
     done
@@ -65,9 +68,12 @@ dev() {
 }
 
 tools() {
+	# simplegrep now availble in v5.4.11
+    amove usr/bin/simplegrep
     amove usr/bin/hsbench
     amove usr/bin/hscheck
-    amove usr/bin/hscollider
+	# No longer available in v5.4.11, worked in 5.4.10.1
+    #amove usr/bin/hscollider
 }
 
 sha512sums="
