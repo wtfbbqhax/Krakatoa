@@ -1,7 +1,7 @@
 # Contributor: Victor Roemer <victor@badsec.org>
 # Maintainer: Victor Roemer <victor@badsec.org>
 pkgname="snort3-extra"
-pkgver=3.1.84.0
+pkgver=3.2.1.0
 pkgrel=0
 pkgdesc="Snort3 Extra Stuff"
 url="https://github.com/snort3/snort3_extra"
@@ -31,5 +31,5 @@ package() {
 }
 
 sha512sums="
-daf03399492d7f88d6c7af95d6a03ad1e1f758217558fd493e6eb65d296953065fb2252a53b636fbdd3cad01cb5ab8e639784618b58a18e62f79156be458f500  snort3-extra-3.1.84.0.tar.gz
+a7f096dba804d8117a5d80e6be38568e332dce4d19df1bb8e066fa4b688c87f4cc19f97d4cab017874a3d8826315c5a6d5aab2ffedd3156d47b74e8e7c6f1f9c  snort3-extra-3.2.1.0.tar.gz
 "
