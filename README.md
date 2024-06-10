@@ -3,7 +3,7 @@
 
 ![Krakatoa-Image Logo](doc/silhouette-of-krakatoa-volcano-eruption.svg)
 
-**FROM [Alpine Linux 3.19.1](https://www.alpinelinux.org/posts/Alpine-3.19.1-released.html)**
+**FROM [Alpine Linux 3.20.0](https://www.alpinelinux.org/posts/Alpine-3.20.0-released.html)**
 
 This repository serves as a reference for building a custom Alpine container images based on the Alpine Linux. We make use of the Alpine Packaging tools `abuild` and `apk` to build a package repository local to the image itself. The local package repo builds package and subpackage targets from the software listed below.
 
