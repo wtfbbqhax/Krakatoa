@@ -6,7 +6,6 @@ RUN apk update
 RUN apk add abuild atools
 
 RUN echo "@local /home/build/aports/packages" >> /etc/apk/repositories
-COPY home/build/abuild/build.rsa.pub /etc/apk/keys
 RUN adduser build build -D -s /bin/sh -h "/home/build"
 RUN addgroup build abuild
 
@@ -20,6 +19,10 @@ RUN chown build:build -R /home/build
 
 USER build
 WORKDIR /home/build
+
+# Generate an rsa keypair for local repository
+# See https://wiki.alpinelinux.org/wiki/Include:Abuild-keygen
+RUN echo /home/build/abuild/build.rsa | abuild-keygen -ai
 
 ENV PACKAGE_DIR=/home/build/packages
 
