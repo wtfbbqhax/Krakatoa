@@ -12,8 +12,7 @@ ARCH := $(if $(filter $(ARCH), x86_64),amd64,arm64v8)
 # Define the docker image name
 IMAGE_NAME := $(ARCH)/krakatoa
 
-.PHONY: build run
-
+.PHONY: build
 build:
 	docker build \
 		--build-arg ARCH=$(ARCH) \
@@ -22,9 +21,23 @@ build:
 		-f $(CONTAINERFILE) \
 		.
 
-run:
-	docker run -v$(PWD)/mount:/mount --rm -ti $(IMAGE_NAME) sh
+.PHONY: start
+start:
+	docker run --rm -v$(PWD)/mount:/volumes -td $(IMAGE_NAME)
 
+.PHONY: stop
+stop:
+	docker stop $(shell docker ps --filter "ancestor=$(IMAGE_NAME)" --format "{{.ID}}")
+
+.PHONY: attach
+attach:
+	docker exec -ti $(shell docker ps --filter "ancestor=$(IMAGE_NAME)" --format "{{.ID}}" | head -n1) sh
+
+.PHONY: run
+run:
+	docker run -v$(PWD)/volumes:/volumes --rm -ti $(IMAGE_NAME) sh
+
+.PHONY: clean
 clean:
 	docker rmi $(IMAGE_NAME)
 	docker rmi $(ARCH)/alpine:$(ALPINE_VERSION)

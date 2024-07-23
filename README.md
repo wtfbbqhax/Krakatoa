@@ -29,6 +29,7 @@ Several dependencies to build a complete version of Snort 3 are not part officia
 
 
 2. Run Krakatoa
+
     ```sh
     # From your host system, create a new Krakatoa container.
     docker run --rm -ti krakatoa
@@ -58,6 +59,19 @@ Several dependencies to build a complete version of Snort 3 are not part officia
         --daq afpacket -i eth0 
     ```
 
+3. Persistent environment
+
+   ```sh
+
+   # Launch a new Krakatoa container in the background
+   make start
+
+   # Attach to running Krakatoa container
+   make attach
+
+   # Terminate the container
+   make stop
+   ```
 ## Credits
 
  * Victor Roemer ([wtfbbqhax](https://www.github.com/wtfbbqhax))
