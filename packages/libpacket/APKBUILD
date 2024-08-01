@@ -1,0 +1,33 @@
+# Contributor: Victor Roemer <victor@badsec.org>
+# Maintainer: Victor Roemer <victor@badsec.org>
+pkgname=libpacket
+pkgver=0.2.2
+pkgrel=0
+pkgdesc="Packet parser library that provides a clean API to aide in the creation of packet sniffers."
+url="https://github.com/wtfbbqhax/LibPacket"
+arch="all"
+license="BSD"
+options='!fhs !check'
+giturl="https://github.com/wtfbbqhax/LibPacket.git"
+builddir="$srcdir/libpacket"
+depends=""
+makedepends="git cmake ninja"
+subpackages="$pkgname-dev"
+
+prepare() {
+    mkdir -p "$builddir"
+    git clone --depth 1 --branch master $giturl "$builddir"
+}
+
+build() {
+    cmake -B build -G Ninja -DCMAKE_BUILD_TYPE:STRING=Release
+    cmake --build build
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+}
+
+dev() {
+    default_dev
+}
