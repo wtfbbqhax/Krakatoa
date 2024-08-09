@@ -1,5 +1,5 @@
 # Define variables for build args
-ALPINE_VERSION := 3.20.0
+ALPINE_VERSION := 3.20.2
 CONTAINERFILE=Containerfile
 
 # User may specify the architecture to build else build for the host
