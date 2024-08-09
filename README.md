@@ -10,12 +10,12 @@ This repository serves as a reference for building a custom Alpine container ima
 ### Packaged Software
 Several dependencies to build a complete version of Snort 3 are not part officially supported by Alpine Linux or what does exist did not meet my expectations so they've been pulled directly. Additionally, the Snort3, Snort3 Extra and LibDAQ packages were solely produced for **Krakatoa**.
 
- * [Snort3 3.2.1.0](https://github.com/snort3/snort3/releases/tag/3.2.1.0)
- * [Snort3 Extra 3.2.1.0](https://github.com/snort3/snort3_extra/releases/tag/3.2.1.0)
+ * [Snort3 3.3.2.0](https://github.com/snort3/snort3/releases/tag/3.3.2.0)
+ * [Snort3 Extra 3.3.2.0](https://github.com/snort3/snort3_extra/releases/tag/3.3.2.0)
  * [hwloc 2.9.1](https://www-lb.open-mpi.org/software/hwloc/v2.9/)
  * [jemalloc 5.3.0](https://github.com/jemalloc/jemalloc/releases/tag/5.3.0/)
  * [Vectorscan 5.4.11](https://github.com/VectorCamp/vectorscan/releases/tag/vectorscan/5.4.11)
- * [LibDAQ 3.0.14](https://github.com/snort3/libdaq/releases/tag/v3.0.14)
+ * [LibDAQ 3.0.16](https://github.com/snort3/libdaq/releases/tag/v3.0.16)
  * [AbcIP 2.4.1](https://github.com/crc181/abcip)[^1]
  * [Lightspd Manifest 0.1.0](https://github.com/wtfbbqhax/lightspd-manifest)
 
