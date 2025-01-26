@@ -23,7 +23,7 @@ build:
 
 .PHONY: start
 start:
-	docker run --rm -v$(PWD)/mount:/volumes -td $(IMAGE_NAME)
+	docker run --rm -v$(PWD)/volumes:/volumes -td $(IMAGE_NAME)
 
 .PHONY: stop
 stop:
