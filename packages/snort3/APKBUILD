@@ -1,7 +1,7 @@
 # Contributor: Victor Roemer <victor@badsec.org>
 # Maintainer: Victor Roemer <victor@badsec.org>
 pkgname=snort3
-pkgver=3.3.2.0
+pkgver=3.6.2.0
 pkgrel=0
 pkgdesc="Snort3 Intrusion Prevention System"
 url="www.snort.org"
@@ -15,7 +15,7 @@ checkdepends="cppcheck cpputest"
 depends="libdnet
 	xz-libs
 	libuuid
-	pcre
+	pcre2
 	libtirpc
 	libressl
 	libdaq
@@ -33,7 +33,7 @@ makedepends="cmake
 	libressl-dev
 	libtirpc-dev
 	libuuid
-	pcre-dev
+	pcre2-dev
 	xz-dev
 	zlib-dev
 	libdaq
@@ -89,5 +89,5 @@ utils() {
 }
 
 sha512sums="
-26166f74aa537f4108b9fc53996a89e31b6d44ee03831526e0e3cd77b180bacb7f6ee2451b96ee4eace90026529f05f7b6b6e189e4e25499e849443a13b745ee  snort3-3.3.2.0.tar.gz
+fceea17239e923ca20817bddb2e87504f84bbb816f8d3585c7ae3eb46d98cc157a651f41a94f4c676d37032495215269a1d9d476ec1fe06f5bef57c45aff7b1d  snort3-3.6.2.0.tar.gz
 "
