@@ -1,7 +1,7 @@
-ARG ALPINE_VERSION
-ARG ARCH
+ARG ALPINE_VERSION=latest
+ARG ARCH=arm64v8
 
-FROM $ARCH/alpine:$ALPINE_VERSION as alpine_package_builder
+FROM $ARCH/alpine:$ALPINE_VERSION AS alpine_package_builder
 RUN apk update
 RUN apk add abuild atools
 
